@@ -3,8 +3,7 @@ using System.Net;
 using System.Text.Json;
 
 namespace PersonDataReader.Service;
-
-public class ServiceReader
+public class ServiceReader : IPersonReader
 {
     WebClient client = new();
     string baseUri = "http://localhost:9874";
