@@ -1,5 +1,5 @@
 ﻿using PeopleViewer.Presentation;
-using PersonDataReader.CSV;
+using PersonDataReader.SQL;
 using System.Windows;
 
 namespace PeopleViewer;
@@ -15,7 +15,7 @@ public partial class App : Application
 
     private static void ComposeObjects()
     {
-        var reader = new CSVReader();
+        var reader = new SQLReader();
         var viewModel = new PeopleViewModel(reader);
         Current.MainWindow = new PeopleViewerWindow(viewModel);
     }
