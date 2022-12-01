@@ -1,5 +1,4 @@
 ﻿using PeopleViewer.Common;
-using PersonDataReader.Service;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,16 +7,15 @@ public class PeopleViewModel : INotifyPropertyChanged
 {
     protected IPersonReader DataReader;
     private IEnumerable<Person> _people = new List<Person>();
-
     public IEnumerable<Person> People
     {
         get => _people;
         set { _people = value; RaisePropertyChanged(); }
     }
 
-    public PeopleViewModel()
+    public PeopleViewModel(IPersonReader dataReader)
     {
-        DataReader = new ServiceReader();
+        DataReader = dataReader;
     }
 
     public void RefreshPeople()

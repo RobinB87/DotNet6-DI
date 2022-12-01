@@ -2,15 +2,14 @@
 using System.Windows;
 
 namespace PeopleViewer;
-
 public partial class PeopleViewerWindow : Window
 {
     PeopleViewModel viewModel;
 
-    public PeopleViewerWindow()
+    public PeopleViewerWindow(PeopleViewModel peopleViewModel)
     {
         InitializeComponent();
-        viewModel = new PeopleViewModel();
+        viewModel = peopleViewModel;
         this.DataContext = viewModel;
     }
 
