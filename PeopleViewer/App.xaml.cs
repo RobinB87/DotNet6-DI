@@ -1,4 +1,6 @@
 ﻿using PeopleViewer.Presentation;
+using PersonDataReader.Decorators;
+using PersonDataReader.Service;
 using PersonDataReader.SQL;
 using System.Windows;
 
@@ -15,7 +17,8 @@ public partial class App : Application
 
     private static void ComposeObjects()
     {
-        var reader = new SQLReader();
+        var wrappedReader = new ServiceReader();
+        var reader = new CachingReader(wrappedReader);
         var viewModel = new PeopleViewModel(reader);
         Current.MainWindow = new PeopleViewerWindow(viewModel);
     }
