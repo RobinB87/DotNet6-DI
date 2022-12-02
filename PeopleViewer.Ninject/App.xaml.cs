@@ -1,4 +1,5 @@
-﻿using PeopleViewer.Common;
+﻿using Ninject;
+using PeopleViewer.Common;
 using PeopleViewer.Presentation;
 using PersonDataReader.CSV;
 using PersonDataReader.Decorators;
@@ -10,22 +11,25 @@ namespace PeopleViewer.Ninject;
 
 public partial class App : Application
 {
+    IKernel Container = new StandardKernel();
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         ConfigureContainer();
         ComposeObjects();
-        Application.Current.MainWindow.Title = "With Dependency Injection - Ninject";
-        Application.Current.MainWindow.Show();
+        Current.MainWindow.Title = "With Dependency Injection - Ninject";
+        Current.MainWindow.Show();
     }
 
     private void ConfigureContainer()
     {
-
+        Container.Bind<IPersonReader>().To<ServiceReader>()
+            .InSingletonScope();
     }
 
     private void ComposeObjects()
     {
-
+        Current.MainWindow = Container.Get<PeopleViewerWindow>();
     }
 }
