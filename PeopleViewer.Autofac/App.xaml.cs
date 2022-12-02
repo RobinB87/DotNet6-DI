@@ -30,8 +30,11 @@ public partial class App : Application
             .As<IPersonReader>()
             .SingleInstance();
 
-        builder.RegisterSource(
-            new AnyConcreteTypeNotAlreadyRegisteredSource());
+        builder.RegisterType<PeopleViewerWindow>()
+            .InstancePerDependency(); // same as transient in ninject (instance per request)
+
+        builder.RegisterType<PeopleViewModel>()
+            .InstancePerDependency();
 
         Container = builder.Build();
     }
