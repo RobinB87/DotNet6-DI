@@ -27,8 +27,13 @@ public partial class App : Application
     {
         var builder = new ContainerBuilder();
         builder.RegisterType<ServiceReader>()
-            .As<IPersonReader>()
+            .Named<IPersonReader>("reader")
             .SingleInstance();
+
+        builder.RegisterDecorator<IPersonReader>(
+            (c, inner) => 
+                new CachingReader(inner), 
+                    fromKey: "reader");
 
         builder.RegisterType<PeopleViewerWindow>()
             .InstancePerDependency(); // same as transient in ninject (instance per request)
