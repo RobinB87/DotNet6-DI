@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Autofac" Version="6.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\PeopleViewer.Common\PeopleViewer.Common.csproj" />
 	  <ProjectReference Include="..\PeopleViewer.Presentation\PeopleViewer.Presentation.csproj" />
 	  <ProjectReference Include="..\PeopleViewer.View\PeopleViewer.View.csproj" />

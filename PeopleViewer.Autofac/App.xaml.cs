@@ -1,4 +1,6 @@
-﻿using PeopleViewer.Common;
+﻿using Autofac;
+using Autofac.Features.ResolveAnything;
+using PeopleViewer.Common;
 using PeopleViewer.Presentation;
 using PersonDataReader.CSV;
 using PersonDataReader.Decorators;
@@ -10,22 +12,33 @@ namespace PeopleViewer.Autofac;
 
 public partial class App : Application
 {
+    IContainer Container;
+    
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         ConfigureContainer();
         ComposeObjects();
-        Application.Current.MainWindow.Title = "With Dependency Injection - Autofac";
-        Application.Current.MainWindow.Show();
+        Current.MainWindow.Title = "With Dependency Injection - Autofac";
+        Current.MainWindow.Show();
     }
 
     private void ConfigureContainer()
     {
+        var builder = new ContainerBuilder();
+        builder.RegisterType<ServiceReader>()
+            .As<IPersonReader>()
+            .SingleInstance();
 
+        builder.RegisterSource(
+            new AnyConcreteTypeNotAlreadyRegisteredSource());
+
+        Container = builder.Build();
     }
 
     private void ComposeObjects()
     {
-
+        Current.MainWindow = 
+            Container.Resolve<PeopleViewerWindow>();
     }
 }
